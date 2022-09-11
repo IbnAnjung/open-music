@@ -1,0 +1,33 @@
+{
+  "name": "open-music",
+  "version": "1.0.0",
+  "description": "open music api",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IbnAnjung/open-music.git"
+  },
+  "author": "Angga Saputra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IbnAnjung/open-music/issues"
+  },
+  "homepage": "https://github.com/IbnAnjung/open-music#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.0",
+    "dotenv": "^16.0.2",
+    "joi": "^17.6.0",
+    "nanoid": "^3.1.20",
+    "node-pg-migrate": "^6.2.2",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19"
+  }
+}
