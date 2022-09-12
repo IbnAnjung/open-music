@@ -5,6 +5,10 @@ const albums = require('./apis/albums');
 const AlbumService = require('./services/albums/AlbumService');
 const AlbumValidator = require('./validators/albums/index');
 
+const songs = require('./apis/songs');
+const SongService = require('./services/songs/SongService');
+const SongValidator = require('./validators/songs/index');
+
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT,
@@ -27,13 +31,22 @@ const init = async () => {
     },
   ]);
 
-  await server.register({
-    plugin: albums,
-    options: {
-      service: new AlbumService(),
-      validator: AlbumValidator,
+  await server.register([
+    {
+      plugin: albums,
+      options: {
+        service: new AlbumService(),
+        validator: AlbumValidator,
+      },
     },
-  });
+    {
+      plugin: songs,
+      options: {
+        service: new SongService(),
+        validator: SongValidator,
+      },
+    },
+  ]);
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
