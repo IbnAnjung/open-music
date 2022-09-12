@@ -1,6 +1,9 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+const albums = require('./apis/albums');
+const AlbumService = require('./services/albums/AlbumService');
+const AlbumValidator = require('./validators/albums/index');
 
 const init = async () => {
   const server = Hapi.server({
@@ -17,15 +20,20 @@ const init = async () => {
     {
       method: 'GET',
       path: '/',
-      handler: (request, h) => {
-        return h.response({
-          status: 'success',
-          message: 'hello world',
-        });
-      },
+      handler: (request, h) => h.response({
+        status: 'success',
+        message: 'hello world',
+      }),
     },
   ]);
 
+  await server.register({
+    plugin: albums,
+    options: {
+      service: new AlbumService(),
+      validator: AlbumValidator,
+    },
+  });
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
