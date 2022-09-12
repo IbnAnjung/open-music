@@ -28,8 +28,30 @@ class SongServier {
     return result.rows[0].id;
   }
 
-  async getSongs() {
-    const result = await this._pool.query('SELECT * FROM songs');
+  async getSongs({ title = null, performer = null }) {
+    const query = {
+      text: 'SELECT * FROM songs',
+      values: [],
+    };
+
+    let nCondition = 1;
+    if (title) {
+      query.text += ` WHERE title ilike $${nCondition}`;
+      query.values.push(`%${title}%`);
+      nCondition += 1;
+    }
+
+    if (performer) {
+      if (nCondition === 1) {
+        query.text += ` WHERE performer ilike $${nCondition}`;
+      } else {
+        query.text += ` AND performer ilike $${nCondition}`;
+      }
+      query.values.push(`%${performer}%`);
+      nCondition += 1;
+    }
+    console.log(query);
+    const result = await this._pool.query(query);
     return result.rows;
   }
 
