@@ -50,7 +50,6 @@ class SongServier {
       query.values.push(`%${performer}%`);
       nCondition += 1;
     }
-    console.log(query);
     const result = await this._pool.query(query);
     return result.rows;
   }
